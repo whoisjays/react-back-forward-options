@@ -1,32 +1,37 @@
+version: 2
+
 on:
   push:
     branches:
       - master
-
 jobs:
-  publish:
-    runs-on: ubuntu-latest
+  build:
+    docker:
+      - image: node:16.15.0
+
+    working_directory: ~/repo
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
+      - run: yarn install
+      - run: yarn build
+      - run: yarn test
 
-      - name: Install Yarn
-        run: npm install -g yarn
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
-      - name: Install dependencies
-        run: yarn install
+      - run: yarn test
 
-      - name: Build
-        run: yarn build
-
-      - name: Test
-        run: yarn test
+      - run:
+          name: Run build
+          command: export NODE_OPTIONS="--no-warnings" yarn build
 
       # - name: Publish to NPM
       #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
