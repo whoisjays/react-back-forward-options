@@ -1,9 +1,5 @@
-version: 2
+version: 2.1
 
-on:
-  push:
-    branches:
-      - master
 jobs:
   build:
     docker:
@@ -13,25 +9,15 @@ jobs:
 
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
 
+      # Install dependencies
       - run: yarn install
+
+      # Build project
       - run: yarn build
+
+      # Run tests
       - run: yarn test
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: yarn test
-
-      - run:
-          name: Run build
-          command: export NODE_OPTIONS="--no-warnings" yarn build
 
       # - name: Publish to NPM
       #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
