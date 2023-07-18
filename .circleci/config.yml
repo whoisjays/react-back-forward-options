@@ -19,8 +19,9 @@ jobs:
       # Run tests
       - run: yarn test
 
+      # # Publish to NPM only on merge to master
       # - name: Publish to NPM
-      #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+      #   if: github.event_name == 'push' && github.ref == 'refs/heads/master'
       #   env:
       #     NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       #   run: |
