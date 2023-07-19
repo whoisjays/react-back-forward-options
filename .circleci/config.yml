@@ -17,7 +17,7 @@ jobs:
       - run: yarn build
 
       # Run CI
-      -run: yarn lint:ci
+      - run: yarn lint:ci
 
       # Run tests
       - run: yarn coverage
