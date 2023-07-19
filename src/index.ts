@@ -1,3 +1,3 @@
-import { BackForward } from "./components/BackForward/BackForward";
+import {BackForward} from './components/BackForward/BackForward';
 
-export { BackForward };
+export {BackForward};
