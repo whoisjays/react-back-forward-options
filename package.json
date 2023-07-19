@@ -8,11 +8,10 @@
     "test": "jest",
     "coverage": "jest --coverage"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "yarn lint",
-      "git add"
-    ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "devDependencies": {
     "@babel/cli": "7.22.9",
