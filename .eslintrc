@@ -1,0 +1,48 @@
+{
+  "root": true,
+  "settings": {
+    "react": {
+      "version": "18.*.*"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["react", "import", "react-hooks", "testing-library"],
+  "overrides": [
+    {
+      "files": ["*.test.{ts,tsx}"],
+      "rules": {
+        "react/react-in-jsx-scope": "off"
+      }
+    }
+  ],
+  "rules": {
+    "no-console": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "multiline-comment-style": "off",
+    "no-unreachable": "error",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-unused-vars": ["error", {"ignoreRestSiblings": true}],
+    "jest/lowercase-name": "off",
+    "require-await": "error",
+    "testing-library/no-node-access": "warn",
+    "no-use-before-define": "warn",
+    "no-constant-condition": "warn",
+    "@typescript-eslint/no-empty-function": "warn",
+    "sort-imports": [
+      "warn",
+      {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": false,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "multiple", "single", "all"],
+        "allowSeparatedGroups": true
+      }
+    ]
+  },
+  "globals": {}
+}
