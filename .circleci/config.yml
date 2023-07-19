@@ -16,8 +16,11 @@ jobs:
       # Build project
       - run: yarn build
 
+      # Run CI
+      -run: yarn lint:ci
+
       # Run tests
-      - run: yarn test
+      - run: yarn coverage
 
       # # Publish to NPM only on merge to master
       # - name: Publish to NPM
