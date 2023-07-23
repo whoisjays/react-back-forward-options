@@ -7,5 +7,6 @@ export const useBackForwardOptions = ({id}: BackForwardType) => {
   const onBackClickHandler = () => {
     id;
   };
+
   return {onForwardClickHandler, onBackClickHandler};
 };
