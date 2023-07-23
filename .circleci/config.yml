@@ -14,7 +14,7 @@ jobs:
       - run: yarn install
 
       # Build project
-      - run: yarn build
+      - run: yarn build:all
 
       # Run CI
       - run: yarn lint:ci
@@ -22,11 +22,11 @@ jobs:
       # Run tests
       - run: yarn coverage
 
-      # # Publish to NPM only on merge to master
-      # - name: Publish to NPM
-      #   if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      #   run: |
-      #     echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-      #     yarn publish --non-interactive
+      # Publish to NPM only on merge to master
+      - name: Publish to NPM
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+          yarn publish --non-interactive
