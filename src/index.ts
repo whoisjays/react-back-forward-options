@@ -1,3 +1,3 @@
-import {BackForward} from './components/BackForward/BackForward';
+import {useBackForwardOptions} from './hooks/useBackForwardOptions';
 
-export {BackForward};
+export {useBackForwardOptions};
