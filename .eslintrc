@@ -1,5 +1,8 @@
 {
   "root": true,
+  "env": {
+    "node": true
+  },
   "settings": {
     "react": {
       "version": "18.*.*"
@@ -33,6 +36,13 @@
     "no-use-before-define": "warn",
     "no-constant-condition": "warn",
     "@typescript-eslint/no-empty-function": "warn",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "const", "next": "expression" },
+      { "blankLine": "always", "prev": "expression", "next": "return" },
+      { "blankLine": "always", "prev": "return", "next": "expression" },
+      { "blankLine": "always", "prev": "expression", "next": "expression" }
+    ],
     "sort-imports": [
       "warn",
       {
