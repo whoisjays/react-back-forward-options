@@ -1,5 +1,8 @@
 {
   "root": true,
+  "env": {
+    "node": true
+  },
   "settings": {
     "react": {
       "version": "18.*.*"
