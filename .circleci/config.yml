@@ -1,32 +1,67 @@
 version: 2.1
 
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:8.9.1
+
 jobs:
-  build:
-    docker:
-      - image: node:16.15.0
-
-    working_directory: ~/repo
-
+  test:
+    <<: *defaults
     steps:
       - checkout
 
-      # Install dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
       - run: yarn install
+      - run:
+          name: Build project
+          command: yarn build:all
+      - run:
+          name: Run CI
+          command: yarn lint:ci
+      - run:
+          name: Run tests
+          command: yarn coverage
 
-      # Build project
-      - run: yarn build:all
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
-      # Run CI
-      - run: yarn lint:ci
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
+  deploy:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Authenticate with registry
+          env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          command: echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/repo/.npmrc
+      - run:
+          name: Publish package
+          command: yarn publish
 
-      # Run tests
-      - run: yarn coverage
-
-      # Publish to NPM only on merge to master
-      - name: Publish to NPM
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          yarn publish --non-interactive
+workflows:
+  version: 2
+  test-deploy:
+    jobs:
+      - test:
+          filters:
+            tags:
+              only: /^v.*/
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
