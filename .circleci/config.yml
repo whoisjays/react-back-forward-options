@@ -41,9 +41,7 @@ jobs:
           at: ~/repo
       - run:
           name: Authenticate with registry
-          env:
-            NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-          command: echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/repo/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run:
           name: Publish package
           command: yarn publish
