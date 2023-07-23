@@ -1,10 +1,13 @@
-import {render, screen} from '@testing-library/react';
-import {BackForward} from './index';
+import {renderHook} from '@testing-library/react-hooks';
+import {useBackForwardOptions} from './index';
 
-describe('<BackForward/>', () => {
-  it('should render back forward', () => {
-    render(<BackForward />);
+describe('useBackForwardOptions', () => {
+  it('should return onForwardClickHandler and onBackClickHandler', () => {
+    const {result} = renderHook(() => useBackForwardOptions({id: 'someID'}));
+    const {onForwardClickHandler, onBackClickHandler} = result.current;
 
-    expect(screen.getByText('BackForward')).toBeVisible();
+    expect(onForwardClickHandler).toBeDefined();
+
+    expect(onBackClickHandler).toBeDefined();
   });
 });
