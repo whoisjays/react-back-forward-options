@@ -16,19 +16,18 @@ Import hook from react-back-forward-options:
 
 Then, use the useBackForwardOptions hook in your component:
 
-`const MyComponent: React.FC = () => {
-const options = [...];
+    const MyComponent: React.FC = () => {
+        const options = [...];
 
-// Use the useBackForwardOptions hook
-const { onForwardClickHandler, onBackClickHandler, options, currentOption } =
-useBackForwardOptions({ options });
+        // Use the useBackForwardOptions hook
 
-return (
-<div>
-...
-</div>
-);
-};`
+        const { onForwardClickHandler, onBackClickHandler, options, currentOption } =
+        useBackForwardOptions({ options });
+
+        return (
+            <div>...</div>
+        );
+    };
 
 ## Hook API
 
