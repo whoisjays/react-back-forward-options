@@ -19,6 +19,15 @@ export const useBackForwardOptions = <T extends BaseFields>({
   };
 
   const currentOption = options[currentIndex] || null;
+  const isFirstOption = currentIndex === 0;
+  const isLastOption = currentIndex === options.length - 1;
 
-  return {onForwardClickHandler, onBackClickHandler, options, currentOption};
+  return {
+    onForwardClickHandler,
+    onBackClickHandler,
+    options,
+    currentOption,
+    isFirstOption,
+    isLastOption,
+  };
 };
