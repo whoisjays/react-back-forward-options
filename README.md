@@ -21,7 +21,7 @@ $ npm install react-back-forward-options
 Using yarn:
 
 ```bash
-$ yarn add axios
+$ yarn add react-back-forward-options
 ```
 
 ## Usage
