@@ -1,6 +1,6 @@
 
 export type BaseFields = {
-  id: string;
+  id?: string;
 };
 
 export type OptionsType<T extends BaseFields> = {
@@ -12,4 +12,6 @@ export type BackForwardValue<T extends BaseFields> = {
   onBackClickHandler: () => void;
   options: T[];
   currentOption: T | null;
+  isLastOption: boolean;
+  isFirstOption: boolean;
 };
