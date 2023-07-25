@@ -46,6 +46,8 @@ describe('useBackForwardOptions', () => {
     });
 
     expect(result.current.currentOption).toEqual(options[2]);
+
+    expect(result.current.isLastOption).toBe(true);
   });
 
   it('should stay on the first option when onBackClickHandler is called on the first option', () => {
@@ -62,6 +64,8 @@ describe('useBackForwardOptions', () => {
     act(() => {
       result.current.onBackClickHandler();
     });
+
+    expect(result.current.isFirstOption).toBe(true);
 
     expect(result.current.currentOption).toEqual(options[0]);
 
