@@ -1,13 +1,24 @@
 import {BackForwardValue, BaseFields, OptionsType} from '../types';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 
 export const useBackForwardOptions = <T extends BaseFields>({
-  options,
+  options: initialOptions,
   defaultIndex,
 }: OptionsType<T>): BackForwardValue<T> => {
+  const [options, setOptions] = useState<T[]>(initialOptions);
+
+  const isValidIndex =
+    defaultIndex !== undefined && defaultIndex >= 0 && defaultIndex < options.length;
+
   const [currentIndex, setCurrentIndex] = useState<number>(
-    defaultIndex !== undefined ? defaultIndex : options.length - 1,
+    isValidIndex ? defaultIndex : options.length - 1,
   );
+
+  useEffect(() => {
+    setOptions(initialOptions);
+
+    setCurrentIndex(defaultIndex !== undefined ? defaultIndex : initialOptions.length - 1);
+  }, [initialOptions, defaultIndex]);
 
   const onForwardClickHandler = () => {
     if (currentIndex < options.length - 1) {
