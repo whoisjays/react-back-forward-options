@@ -1,12 +1,23 @@
-import {BackForwardType} from '../types';
+import {BackForwardValue, BaseFields, OptionsType} from '../types';
+import {useState} from 'react';
 
-export const useBackForwardOptions = ({id}: BackForwardType) => {
+export const useBackForwardOptions = <T extends BaseFields>({
+  options,
+}: OptionsType<T>): BackForwardValue<T> => {
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+
   const onForwardClickHandler = () => {
-    id;
+    if (currentIndex < options.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
   const onBackClickHandler = () => {
-    id;
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
   };
 
-  return {onForwardClickHandler, onBackClickHandler};
+  const currentOption = options[currentIndex] || null;
+
+  return {onForwardClickHandler, onBackClickHandler, options, currentOption};
 };
