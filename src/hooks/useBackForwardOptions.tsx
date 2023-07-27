@@ -4,13 +4,14 @@ import {useState} from 'react';
 export const useBackForwardOptions = <T extends BaseFields>({
   options,
 }: OptionsType<T>): BackForwardValue<T> => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(options.length - 1);
 
   const onForwardClickHandler = () => {
     if (currentIndex < options.length - 1) {
       setCurrentIndex(currentIndex + 1);
     }
   };
+
   const onBackClickHandler = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
@@ -18,6 +19,15 @@ export const useBackForwardOptions = <T extends BaseFields>({
   };
 
   const currentOption = options[currentIndex] || null;
+  const isFirstOption = currentIndex === 0;
+  const isLastOption = currentIndex === options.length - 1;
 
-  return {onForwardClickHandler, onBackClickHandler, options, currentOption};
+  return {
+    onForwardClickHandler,
+    onBackClickHandler,
+    options,
+    currentOption,
+    isFirstOption,
+    isLastOption,
+  };
 };
