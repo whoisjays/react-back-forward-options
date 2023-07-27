@@ -9,10 +9,10 @@
   "testEnvironment": "jsdom",
   "coverageThreshold": {
     "global": {
-      "branches": 66,
+      "branches": 87,
       "functions": 100,
-      "lines": 91,
-      "statements": 91
+      "lines": 100,
+      "statements": 100
     }
   }
 }

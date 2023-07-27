@@ -75,4 +75,42 @@ describe('useBackForwardOptions', () => {
 
     expect(result.current.currentOption).toEqual(options[0]);
   });
+
+  it('should initialize with the default index when provided', () => {
+    const defaultIndex = 1;
+    const { result } = renderHook(() =>
+      useBackForwardOptions({ options, defaultIndex })
+    );
+
+    expect(result.current.currentOption).toBe(options[defaultIndex]);
+  });
+
+  it('should initialize with the last index as default when defaultIndex is not provided', () => {
+    const { result } = renderHook(() => useBackForwardOptions({ options }));
+
+    expect(result.current.currentOption).toBe(options[options.length - 1]);
+  });
+
+  it('should navigate forward and backward correctly', () => {
+    const { result } = renderHook(() => useBackForwardOptions({ options }));
+
+    // Initial index is options.length - 1
+    expect(result.current.isLastOption).toBe(true);
+
+    act(() => {
+      result.current.onBackClickHandler();
+    });
+
+    expect(result.current.currentOption).toBe(options[1]);
+
+    expect(result.current.isFirstOption).toBe(false);
+
+    act(() => {
+      result.current.onForwardClickHandler();
+    });
+
+    expect(result.current.currentOption).toBe(options[2]);
+
+    expect(result.current.isLastOption).toBe(true);
+  });
 });
