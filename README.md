@@ -32,6 +32,7 @@ Import hook from react-back-forward-options:
 
 Then, use the useBackForwardOptions hook in your component:
 
+```js
     const MyComponent: React.FC = () => {
         const options = [
             {id: 'id1', content: 'content'},
@@ -65,25 +66,28 @@ Then, use the useBackForwardOptions hook in your component:
     };
 
 export default MyComponent;
+```
 
 ## Hook API
 
 The 'useBackForwardOptions' hook returns an object with the following properties:
 
 `onForwardClickHandler`
-A function that advances to the next option in the list, if available.
+A function that advances to the next option, if available.
 
 `onBackClickHandler`
-A function that moves to the previous option in the list, if available.
+A function that moves to the previous option, if available.
 
 `options`
 The array of options passed to the hook.
 
+`defaultIndex` - (Optional) The index of the option from which the navigation should start. If not provided, it defaults to the last index of the options array.
+
 `currentOption`
-The currently selected option in the list.
+The currently selected option in the array.
 
 `isFirstOption`
-A boolean indicating whether the current option is the first option in the list.
+A boolean indicating whether the current option is the first option in the array.
 
 `isLastOption`
-A boolean indicating whether the current option is the last option in the list.
+A boolean indicating whether the current option is the last option in the array.
