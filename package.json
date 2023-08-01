@@ -1,6 +1,6 @@
 {
   "name": "react-back-forward-options",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "private": false,
@@ -8,7 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "babel src --extensions \".ts,.tsx\" --out-dir dist --copy-files",
+    "build": "babel src --extensions \".ts,.tsx\" --out-dir dist --copy-files && find dist -name \"*.test.*\" -delete",
     "build:types": "tsc --declaration --emitDeclarationOnly --outDir dist",
     "build:all": "yarn build && yarn build:types",
     "lint:ci": "eslint . --ext .js,.jsx,.ts,.tsx --quiet",
